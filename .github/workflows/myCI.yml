@@ -30,6 +30,6 @@ jobs: #job to execute?
       
     - name: Install goblin dependencies
       run: |
-        go build
+        go build #if you do not have mod and sum in the repo, go build alone won't work. or you can use go mod init <name>, go get github.com/franela/goblin and go mod tidy
         go test -v
   
