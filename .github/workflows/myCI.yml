@@ -28,8 +28,25 @@ jobs: #job to execute?
     - name: Check File System
       run: ls
       
-    - name: Install goblin dependencies
+    - name: Install dependencies
       run: |
         go build #if you do not have mod and sum in the repo, go build alone won't work. or you can use go mod init <name>, go get github.com/franela/goblin and go mod tidy
+        go get github.com/tebeka/go2xunit
         go test -v
-  
+        go test -v | go2xunit -output tests.xml
+        
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      if: always()
+      with:
+        files: tests.xml
+        
+    - if: ${{ failure() }}
+      uses: nashmaniac/create-issue-action@v1.1
+      name: Create Issue Action
+      with:
+        title: Build Failed
+        token: ${{secrets.GITHUB_TOKEN}}
+        assignees: ${{github.actor}}
+        labels: worflow-failed
+        body: Workflow failed for commit ${{github.sha}}
