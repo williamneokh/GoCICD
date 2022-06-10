@@ -31,7 +31,7 @@ jobs: #job to execute?
     - name: Install dependencies
       run: |
         go build #if you do not have mod and sum in the repo, go build alone won't work. or you can use go mod init <name>, go get github.com/franela/goblin and go mod tidy
-        go get github.com/tebeka/go2xunit
+        go install github.com/tebeka/go2xunit@latest
         go test -v
         go test -v | go2xunit -output tests.xml
         
