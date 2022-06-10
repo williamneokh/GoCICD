@@ -62,4 +62,4 @@ jobs: #job to execute?
         # Telegram Bot token
         token: 5397961312:AAHYg4c6WOoNbl9ekA9JzFcG7pCg6_vIMqc
         # Job status
-        status: test.xml
+        status: New CI Action run
